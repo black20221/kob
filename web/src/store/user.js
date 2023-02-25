@@ -1,4 +1,5 @@
 import $ from 'jquery'
+
 export default {
     state: {
         id: "",
@@ -6,7 +7,7 @@ export default {
         photo: "",
         token: "",
         is_login: false,
-        pulling_info: true,//是否从云端拉取信息
+        pulling_info: true,  // 是否正在从云端拉取信息
     },
     getters: {
     },
@@ -14,7 +15,7 @@ export default {
         updateUser(state, user) {
             state.id = user.id;
             state.username = user.username;
-            state.phtot = user.photo;
+            state.photo = user.photo;
             state.is_login = user.is_login;
         },
         updateToken(state, token) {
@@ -41,12 +42,11 @@ export default {
                     password: data.password,
                 },
                 success(resp) {
-                    if (resp.error_message === 'success') {
+                    if (resp.error_message === "success") {
                         localStorage.setItem("jwt_token", resp.token);
                         context.commit("updateToken", resp.token);
                         data.success(resp);
-                    }
-                    else {
+                    } else {
                         data.error(resp);
                     }
                 },
@@ -69,15 +69,14 @@ export default {
                             is_login: true,
                         });
                         data.success(resp);
-                    }
-                    else {
+                    } else {
                         data.error(resp);
                     }
                 },
                 error(resp) {
                     data.error(resp);
                 }
-            });
+            })
         },
         logout(context) {
             localStorage.removeItem("jwt_token");
